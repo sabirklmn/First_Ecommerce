@@ -1,0 +1,135 @@
+{% extends 'layout/main.html' %}
+ {% load static %} 
+ 
+ {% block csss %}
+<link
+  href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
+  rel="stylesheet"
+  id="bootstrap-css"
+/>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<style>
+  .add-to-cart,
+  .like {
+    background: #ff9f1a;
+    padding: 1.2em 1.5em;
+    border: none;
+    text-transform: UPPERCASE;
+    font-weight: bold;
+    color: #fff;
+    -webkit-transition: background 0.3s ease;
+    transition: background 0.3s ease;
+  }
+
+  .add-to-cart:hover,
+  .like:hover {
+    background: #b36800;
+    color: #fff;
+  }
+</style>
+
+{% endblock csss%} {% block body %}
+
+<div class="container">
+  <br />
+  <nav aria-label="breadcrumb ">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'home'%}">Home</a></li>
+      <li class="breadcrumb-item">
+        <a href="{% url 'collections'%}">collections</a>
+        
+      </li>
+    </ol>
+  </nav>
+ <div>
+  
+  
+    
+ </div>
+  {% for item in sabir %}
+  <div class="card">
+    <div class="container-fliud product_data">
+      <div class="wrapper row">
+        <div class="preview col-md-6 data">
+          <div class="preview-pic tab-content">
+            <div class="tab-pane active ass" id="pic-1">
+              <img src="{{item.product_image.url}}" />
+            </div>
+          </div>
+        </div>
+        <div class="details col-md-6">
+          <h3 class="product-title">{{item.name}}</h3>
+          <div class="rating">
+            <div class="stars">
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+            </div>
+            <span class="review-no">41 reviews</span>
+          </div>
+          <p class="product-description">{{item.desceiption}}</p>
+
+          <h4 class="price">
+            Selling price: <span>₹{{item.selling_price}}</span>
+          </h4>
+<!----button----------------------------->
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-2">
+ 
+                <div class="input-group">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{item.id}}" class="prod_id">
+                    <span class="input-group-btn">
+                        <button type="button" class="quantity-left-minus btn btn-danger btn-number decrement-btn" data-type="minus"
+                            data-field="">
+                            <span class="glyphicon glyphicon-minus"></span>
+                        </button>
+                    </span>
+                    <input type="text" id="quantity" name="quantity" class="form-control input-number input-qty" value="1" min="1"
+                        max="100" />
+                    <span class="input-group-btn">
+                        <button type="button" class="quantity-right-plus btn btn-success btn-number increment-btn" data-type="plus"
+                            data-field="">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </span>
+                </div>
+                </div>
+                </div>
+                </div>
+
+<!----endbutton----------------------------->
+
+          <br />
+          <div class="action">
+            <button class="add-to-cart btn btn-default addToCartBtn" type="button">
+              add to cart
+            </button>
+            <button class="like btn btn-default" type="button">
+              <span class="fa fa-heart"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endfor %}
+</div>
+<br />
+<br />
+{% block js %}
+
+<script src="{% static '/js/custom2.js' %}"></script>
+<script src="{% static '/js/jquery-3.6.4.min.js' %}"></script>
+
+{% endblock js %} 
+
+{% endblock body %}
